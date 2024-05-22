@@ -1,0 +1,12 @@
+body {
+  background: rgb(69, 69, 227);
+  background: linear-gradient(
+    180deg,
+    rgba(69, 69, 227, 0.48792016806722693) 17%,
+    rgba(2, 211, 254, 0.34506302521008403) 100%
+  ), url("../img/bg_sekolah.jpg") no-repeat center center fixed;
+  /* background-image: url("../img/bg_sekolah.jpg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
