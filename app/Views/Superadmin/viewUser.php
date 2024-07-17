@@ -60,7 +60,7 @@
                                 <!-- Button Tambah Data siswa baru -->
                                 <div class="">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalNewSiswa">
-                                        + Tambah Kriteria Baru
+                                        + Tambah Operator Baru
                                     </button>
                                 </div>
 
@@ -69,39 +69,40 @@
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Kriteria Baru</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Akun Baru</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <?= form_open('operator/addKategori'); ?>
+                                            <!-- form open here -->
+                                            <?= form_open('superadmin/addAdmin') ?>
                                             <div class="modal-body">
                                                 <div class="form-group row">
                                                     <label for="id" class="col-sm-3 col-form-label">ID :</label>
                                                     <div class="col-sm-7 ">
                                                         <input type="text" readonly class="form-control" id="id" name="id">
                                                     </div>
-                                                    <label for="name" class="col-sm-3 col-form-label">Kriteria :</label>
+                                                    <label for="username" class="col-sm-3 col-form-label">Username :</label>
                                                     <div class="col-sm-7 ">
-                                                        <input type="text" class="form-control" id="name" name="name" required="" oninvalid="this.setCustomValidity('Nama kriteria harus diisi')" oninput="setCustomValidity('')">
+                                                        <input type="text" class="form-control" id="username" name="username" required="" oninvalid="this.setCustomValidity('Username harus diisi')" oninput="setCustomValidity('')">
                                                     </div>
-                                                    <label for="description" class="col-sm-8 col-form-label">Deskripsi :</label>
-                                                    <div class="col-sm-10">
-                                                        <textarea type="text" class="form-control" id="description" name="description" required="" oninvalid="this.setCustomValidity('Deskripsi kriteria harus diisi')" oninput="setCustomValidity('')"></textarea>
+                                                    <label for="password" class="col-sm-3 col-form-label">Password :</label>
+                                                    <div class="col-sm-7 ">
+                                                        <input type="text" class="form-control" id="password" name="password" required="" oninvalid="this.setCustomValidity('Password harus diisi')" oninput="setCustomValidity('')">
                                                     </div>
-                                                    <br><br>
-                                                    <label for="name" class="col-sm-4 col-form-label">Tipe Kriteria :</label>
-                                                    <div class="col-sm-3 ">
-                                                        <input class="form-check-input" type="checkbox" value="max" id="flexCheckDefault" name="type"> <label class="form-check-label" for="flexCheckDefault">Benefit</label> <br>
-                                                        <input class="form-check-input" type="checkbox" value="min" id="flexCheckDefault" name="type"> <label class="form-check-label" for="flexCheckDefault">Cost</label>
+                                                    <label for="name" class="col-sm-3 col-form-label">Nama :</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="text" class="form-control" id="nama" name="nama" required="" oninvalid="this.setCustomValidity('Nama harus diisi')" oninput="setCustomValidity('')"></textarea>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                             </div>
-                                            <?= form_close();  ?>
+                                            <?= form_close(); ?>
+                                            <!-- form close here -->
                                         </div>
                                     </div>
                                 </div>
@@ -112,8 +113,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Kriteria</th>
-                                    <th scope="col">Deskripsi</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Role</th>
                                     <?php if (session('authority') > 1) : ?>
                                         <th scope="col">Aksi</th>
                                     <?php endif ?>
@@ -121,15 +123,17 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach ($kategori as $k) : ?>
-                                    <th scope="row"><?= $k['id'] ?></th>
-                                    <td><?= $k['name'] ?></td>
-                                    <td><?= $k['description'] ?></td>
+                                <?php foreach ($users as $u) : ?>
+                                    <th scope="row"><?= $u['id_user'] ?></th>
+                                    <td><?= $u['username'] ?></td>
+                                    <td><?= $u['nama'] ?></td>
+                                    <td><?= $u['authority'] ?></td>
+
                                     <td class="col-2">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editKategori<?= $k['id'] ?>">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAccounts<?= $u['id_user'] ?>">
                                             <i class=" bi bi-pencil"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteKategori<?= $k['id'] ?>">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccounts<?= $u['id_user'] ?>">
                                             <i class=" bi bi-trash"></i>
                                         </button>
                                         <!-- <button type="button" class="btn btn-danger"> <i class="bi bi-trash"></i></button> -->
@@ -137,27 +141,27 @@
                                     </tr>
 
                                     <!-- Modal Update Data -->
-                                    <div class="modal fade" id="editKategori<?= $k['id'] ?>" tabindex="-1" aria-labelledby="editKategoriModal" aria-hidden="true">
+                                    <div class="modal fade" id="editAccounts<?= $u['id_user'] ?>" tabindex="-1" aria-labelledby="editAccountsModal" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="editKategoriModal">Ubah Data Kriteria</h1>
+                                                    <h4 class="modal-title" id="editAccountsModal">Ubah Data Kriteria</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
                                                 </div>
-                                                <?= form_open('operator/updateKategori'); ?>
+                                                <?= form_open('operator/updateAccounts'); ?>
                                                 <div class="modal-body">
                                                     <div class="form-group row">
                                                         <label for="id" class="col-sm-3 col-form-label">ID :</label>
                                                         <div class="col-sm-7 ">
-                                                            <input type="text" readonly class="form-control" id="id" name="id" value="<?= $k['id'] ?>">
+                                                            <input type="text" readonly class="form-control" id="id" name="id" value="<?= $u['id_user'] ?>">
                                                         </div>
                                                         <label for="name" class="col-sm-3 col-form-label">Kriteria :</label>
                                                         <div class="col-sm-7 ">
-                                                            <input type="text" class="form-control" id="name" name="name" value="<?= $k['name'] ?>">
+                                                            <input type="text" class="form-control" id="name" name="name" value="<?= $u['nama'] ?>">
                                                         </div>
-                                                        <label for="description" class="col-sm-8 col-form-label">Deskripsi :</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="description" name="description" value="<?= $k['description'] ?>"></textarea>
+                                                        <label for="description" class="col-sm-3 col-form-label">Role :</label>
+                                                        <div class="col-sm-7">
+                                                            <input type="text" class="form-control" id="description" name="description" value="<?= $u['authority'] ?>"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,17 +176,17 @@
 
 
                                     <!-- moodal delete data -->
-                                    <div class="modal fade" id="deleteKategori<?= $k['id'] ?>" tabindex="-1" aria-labelledby="deleteKategoriModal" aria-hidden="true">
+                                    <div class="modal fade" id="deleteAccounts<?= $u['id_user'] ?>" tabindex="-1" aria-labelledby="deleteAccountsModal" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title fs-4" id="deleteKategoriModal"> <i class="bi bi-exclamation-triangle"></i> Hapus Data Kategori</h1>
+                                                    <h4 class="modal-title fs-4" id="deleteAccountsModal"> <i class="bi bi-exclamation-triangle"></i> Hapus Data Accounts</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
                                                 </div>
-                                                <?= form_open('operator/deleteKategori'); ?>
+                                                <?= form_open('superadmin/deleteAdmin'); ?>
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="id" value="<?= $k['id'] ?>">
-                                                    <h5>Anda yakin ingin menghapus Kriteria "<?= $k['name']; ?>" ?</h5>
+                                                    <input type="hidden" name="id" value="<?= $u['id_user'] ?>">
+                                                    <h5>Anda yakin ingin menghapus Kriteria "<?= $u['nama']; ?>" ?</h5>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

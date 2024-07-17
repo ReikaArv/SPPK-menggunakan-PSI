@@ -197,9 +197,15 @@ class Operator extends BaseController
     {
         helper('form');
         $model = new ModelOperator();
+        if ($this->request->getPost('type') == 'max') {
+            $type = 'max';
+        } else {
+            $type = 'min';
+        }
         $data = [
             'name' => $this->request->getPost('name'),
             'description' => $this->request->getPost('description'),
+            'type' => $type,
         ];
         $model->addCategoryData($data);
         return redirect()->to('kategori');

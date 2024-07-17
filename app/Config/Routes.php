@@ -42,6 +42,7 @@ $routes->get('/siswa', 'Operator::viewSiswa');
 $routes->get('/kategori', 'Operator::viewKategori');
 
 $routes->get("/nilai/(:num)", "Operator::getNilaiSiswa/$1");
+$routes->get('/superadmin', 'Superadmin::index');
 // $routes->setAutoRoute(true);
 /*
  * --------------------------------------------------------------------

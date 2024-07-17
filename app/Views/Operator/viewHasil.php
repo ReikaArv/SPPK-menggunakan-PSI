@@ -21,7 +21,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php if (session('authority') > 2) : ?>
+        <?php if (session('authority') > 0) : ?>
             <?= $this->include('Templates/sidebar') ?>
         <?php endif ?>
         <!-- End of Sidebar -->
@@ -32,7 +32,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                <?php if (session('authority') > 2) : ?>
+                <?php if (session('authority') > 0) : ?>
                     <?= $this->include('Templates/navbar.php') ?>
                 <?php endif ?>
 
@@ -61,7 +61,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Rank</th>
-                                            <?php if (session('authority') > 10) : ?>
+                                            <?php if (session('authority') > 0) : ?>
                                                 <th scope="col">ID</th>
                                             <?php endif ?>
                                             <th scope="col">Nama</th>
@@ -79,7 +79,7 @@
                                             endif ?>
                                             <tr class="<?= $tableColor ?>">
                                                 <th scope="row"><?= '#' . $i++ ?></th>
-                                                <?php if (session('authority') > 10) : ?>
+                                                <?php if (session('authority') > 0) : ?>
                                                     <th scope="row"><?= $d['id'] ?></th>
                                                 <?php endif ?>
                                                 <td><?= $d['name'] ?></td>

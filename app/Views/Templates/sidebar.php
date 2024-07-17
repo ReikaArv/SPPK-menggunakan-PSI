@@ -3,7 +3,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= site_url('Auth/logout') ?>">
         <div class="sidebar-brand-icon">
-            <!-- <i class="fas fa-laugh-wink"></i> -->
+            <!-- <i class="fas fa-laugh-wink"></i>  -->
             <img src="<?= base_url('/assets/img/logo_smk1prajekan.png') ?>" alt="" width="64px">
         </div>
         <div class="sidebar-brand-text mx-3">SMKN 1 Prajekan</div>
@@ -27,11 +27,11 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Menu Admin</span>
+            <span>Menu Operator</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <?= $this->include('Templates/menu_admin.php') ?>
+                <?= $this->include('Templates/menu_operator.php') ?>
             </div>
         </div>
     </li>
